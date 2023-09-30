@@ -1,0 +1,419 @@
+{
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"version": 1,
+	"newProjectRoot": "projects",
+	"projects": {
+		"Administrator": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/administrator",
+			"sourceRoot": "projects/administrator/src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "ngx-build-plus:browser",
+					"options": {
+						"outputPath": "dist/administrator",
+						"index": "projects/administrator/src/index.html",
+						"main": "projects/administrator/src/main.ts",
+						"polyfills": [
+							"zone.js"
+						],
+						"tsConfig": "projects/administrator/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							"projects/administrator/src/favicon.ico",
+							"projects/administrator/src/assets"
+						],
+						"styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/swiper/swiper-bundle.css",
+							"projects/administrator/src/scss/styles.scss"
+						],
+						"scripts": [],
+						"extraWebpackConfig": "projects/administrator/webpack.config.js",
+						"commonChunk": false
+					},
+					"configurations": {
+						"production": {
+              "outputPath": "dist/administrator/production",
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+              "fileReplacements": [
+                {
+                  "replace": "projects/administrator/src/environments/environment.ts",
+                  "with": "projects/administrator/src/environments/environment.production.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/administrator/webpack.prod.config.js"
+						},
+            "stage": {
+              "outputPath": "dist/administrator/stage",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "130kb",
+                  "maximumError": "130kb"
+
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/administrator/src/environments/environment.ts",
+                  "with": "projects/administrator/src/environments/environment.stage.ts"
+                }
+              ],
+              "outputHashing": "all",
+							"extraWebpackConfig": "projects/administrator/webpack.stage.config.js"
+            },
+            "develop": {
+              "outputPath": "dist/administrator/develop",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "130kb",
+                  "maximumError": "130kb"
+
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/administrator/src/environments/environment.ts",
+                  "with": "projects/administrator/src/environments/environment.ts"
+                }
+              ],
+              "outputHashing": "all",
+							"extraWebpackConfig": "projects/administrator/webpack.dev.config.js"
+            },
+            "development": {
+              "outputPath": "dist/administrator/develop",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "130kb",
+                  "maximumError": "130kb"
+
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/administrator/src/environments/environment.ts",
+                  "with": "projects/administrator/src/environments/environment.ts"
+                }
+              ],
+              "buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true,
+							"extraWebpackConfig": "projects/administrator/webpack.local.config.js"
+            }
+					},
+          "defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "ngx-build-plus:dev-server",
+					"configurations": {
+            "production": {
+							"browserTarget": "Administrator:build:production",
+							"extraWebpackConfig": "projects/administrator/webpack.prod.config.js"
+						},
+            "stage": {
+							"browserTarget": "Administrator:build:stage",
+							"extraWebpackConfig": "projects/administrator/webpack.stage.config.js"
+						},
+						"develop": {
+							"browserTarget": "Administrator:build:develop",
+              "extraWebpackConfig": "projects/administrator/webpack.dev.config.js"
+						},
+            "development": {
+							"browserTarget": "Administrator:build:development",
+              "extraWebpackConfig": "projects/administrator/webpack.local.config.js"
+						}
+					},
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4200,
+						"publicHost": "http://localhost:4200",
+						"extraWebpackConfig": "projects/administrator/webpack.local.config.js"
+					}
+				},
+				"extract-i18n": {
+					"builder": "ngx-build-plus:extract-i18n",
+					"options": {
+						"browserTarget": "Administrator:build",
+						"extraWebpackConfig": "projects/administrator/webpack.dev.config.js"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "projects/administrator/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							"projects/administrator/src/favicon.ico",
+							"projects/administrator/src/assets"
+						],
+						"styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/swiper/swiper-bundle.css",
+							"projects/administrator/src/scss/styles.scss"
+						],
+						"scripts": []
+					}
+				}
+			}
+		},
+		"Authorizer": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/authorizer",
+			"sourceRoot": "projects/authorizer/src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "ngx-build-plus:browser",
+					"options": {
+						"outputPath": "dist/authorizer",
+						"index": "projects/authorizer/src/index.html",
+						"main": "projects/authorizer/src/main.ts",
+						"polyfills": [
+							"zone.js"
+						],
+						"tsConfig": "projects/authorizer/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							"projects/authorizer/src/favicon.ico",
+							"projects/authorizer/src/assets"
+						],
+						"styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/swiper/swiper-bundle.css",
+							"projects/administrator/src/scss/styles.scss"
+						],
+						"scripts": [],
+						"extraWebpackConfig": "projects/authorizer/webpack.config.js",
+						"commonChunk": false
+					},
+					"configurations": {
+						"production": {
+              "outputPath": "dist/authorizer/production",
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+              "fileReplacements": [
+                {
+                  "replace": "projects/authorizer/src/environments/environment.ts",
+                  "with": "projects/authorizer/src/environments/environment.production.ts"
+                }
+              ],
+							"outputHashing": "all",
+							"extraWebpackConfig": "projects/authorizer/webpack.prod.config.js"
+						},
+            "stage":{
+              "outputPath": "dist/authorizer/stage",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "130kb",
+                  "maximumError": "130kb"
+
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/authorizer/src/environments/environment.ts",
+                  "with": "projects/authorizer/src/environments/environment.stage.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "develop": {
+              "outputPath": "dist/authorizer/develop",
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+              "fileReplacements": [
+                {
+                  "replace": "projects/authorizer/src/environments/environment.ts",
+                  "with": "projects/authorizer/src/environments/environment.ts"
+                }
+              ],
+							"outputHashing": "all"
+						},
+						"development": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/authorizer/src/environments/environment.ts",
+                  "with": "projects/authorizer/src/environments/environment.ts"
+                }
+              ]
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "ngx-build-plus:dev-server",
+					"configurations": {
+						"production": {
+							"browserTarget": "Authorizer:build:production",
+							"extraWebpackConfig": "projects/authorizer/webpack.prod.config.js"
+						},
+            "stage": {
+							"browserTarget": "Authorizer:build:stage",
+							"extraWebpackConfig": "projects/authorizer/webpack.prod.config.js"
+						},
+            "develop": {
+							"browserTarget": "Authorizer:build:develop",
+              "extraWebpackConfig": "projects/authorizer/webpack.prod.config.js"
+						},
+						"development": {
+							"browserTarget": "Authorizer:build:development"
+						}
+					},
+					"defaultConfiguration": "development",
+					"options": {
+						"port": 4201,
+						"publicHost": "http://localhost:4201",
+						"extraWebpackConfig": "projects/authorizer/webpack.config.js"
+					}
+				},
+				"extract-i18n": {
+					"builder": "ngx-build-plus:extract-i18n",
+					"options": {
+						"browserTarget": "Authorizer:build",
+						"extraWebpackConfig": "projects/authorizer/webpack.config.js"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "projects/authorizer/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							"projects/authorizer/src/favicon.ico",
+							"projects/authorizer/src/assets"
+						],
+						"styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/swiper/swiper-bundle.css"
+						],
+						"scripts": []
+					}
+				}
+			}
+    },
+    "dialogsLib": {
+      "projectType": "library",
+      "root": "projects/dialogs-lib",
+      "sourceRoot": "projects/dialogs-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/dialogs-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/dialogs-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/dialogs-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/dialogs-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
+	},
+	"cli": {
+		"analytics": false
+	}
+}
